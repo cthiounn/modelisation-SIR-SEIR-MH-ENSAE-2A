@@ -11,4 +11,5 @@ LazyData: true
 Imports:
     shiny,
     truncnorm,
-    deSolve
+    deSolve,
+    tidyverse

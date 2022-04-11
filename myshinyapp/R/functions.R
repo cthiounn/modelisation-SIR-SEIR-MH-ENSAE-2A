@@ -29,7 +29,7 @@ simulate_SIR=function(parameters){
   init <- c(N-parameters["initI"],parameters["initI"],0,0)
   #simulation
   temps <- seq(0,15)
-  solveSIR <- lsoda(y =init, times=temps, func = SIR,
+  solveSIR <- deSolve::lsoda(y =init, times=temps, func = SIR,
                     parms = parms)
   solutionSIR=as.data.frame(solveSIR)
   names(solutionSIR)=c("time","S","I","R","Z")
@@ -43,7 +43,7 @@ plot_simulation_graph=function(simulation_dataframe){
   df_observed<- data.frame(x=time,y=infected,type="observed")
   df_simul <- data.frame(x=simulation_dataframe$time,y=simulation_dataframe$I,type="simulated")
   df<-rbind(df_observed,df_simul)
-  ggplot(data=df) + geom_line(mapping = aes(x , y ,colour = type)) 
+  tidyverse::ggplot(data=df) + tidyverse::geom_line(mapping = aes(x , y ,colour = type)) 
 } 
   
 calculer_vraisemblance=function(beta,gamma){
@@ -196,7 +196,7 @@ simulate_SEIR=function(parameters){
   init <- c(N-parameters["initI"],0,parameters["initI"],0,0)
   #simulation
   temps <- seq(0,50)
-  solveSEIR <- lsoda(y =init, times=temps, func = SEIR,
+  solveSEIR <- deSolve::lsoda(y =init, times=temps, func = SEIR,
                      parms = parms)
   solutionSEIR=as.data.frame(solveSEIR)
   names(solutionSEIR)=c("time","S","E","I","R","Z")
