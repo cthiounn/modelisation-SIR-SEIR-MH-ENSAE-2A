@@ -1,0 +1,14 @@
+Package: myshinyapp
+Type: Package
+Title: Shiny app example
+Version: 0.1.0
+Author: cthiounn
+Maintainer: cthiounn <cthiounn@gmail.com>
+Description: Shiny app example
+License: GNU GPL v3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    shiny,
+    truncnorm,
+    deSolve
