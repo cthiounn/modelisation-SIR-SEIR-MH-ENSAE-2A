@@ -43,7 +43,7 @@ plot_simulation_graph=function(simulation_dataframe){
   df_observed<- data.frame(x=time,y=infected,type="observed")
   df_simul <- data.frame(x=simulation_dataframe$time,y=simulation_dataframe$I,type="simulated")
   df<-rbind(df_observed,df_simul)
-  tidyverse::ggplot(data=df) + tidyverse::geom_line(mapping = aes(x , y ,colour = type)) 
+  ggplot2::ggplot(data=df) + ggplot2::geom_line(mapping = aes(x , y ,colour = type)) 
 } 
   
 calculer_vraisemblance=function(beta,gamma){
