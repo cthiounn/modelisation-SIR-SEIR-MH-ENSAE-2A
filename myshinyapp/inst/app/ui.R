@@ -102,7 +102,7 @@ ui <- shiny::navbarPage("Simulation SIR/SEIR",
                                             max = 1,
                                             value = 0.1)
                                 ,
-                                shiny::sliderInput("sigm3",
+                                shiny::sliderInput("sigma3",
                                             "Sigma:",
                                             min = 0,
                                             max = 1,
