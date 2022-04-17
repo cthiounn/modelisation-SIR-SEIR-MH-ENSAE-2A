@@ -218,5 +218,5 @@ plot_simulation_graph_SIR_SEIR=function(simulation_dataframe_SIR,simulation_data
     df_simul_sir <- data.frame(x=simulation_dataframe_SIR$time,y=simulation_dataframe_SIR$I,type="simulated SIR")
     df_simul_seir <- data.frame(x=simulation_dataframe_SEIR$time,y=simulation_dataframe_SEIR$I,type="simulated SEIR")
     df<-rbind(df_observed,df_simul_sir,df_simul_seir)
-    ggplot2::ggplot(data=df) + ggplot2::geom_line(mapping = aes(x , y ,colour = type)) 
+    ggplot2::ggplot(data=df) + ggplot2::geom_line(mapping = ggplot2::aes(x , y ,colour = type)) 
 }
