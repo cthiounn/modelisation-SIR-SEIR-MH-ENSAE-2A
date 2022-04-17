@@ -85,5 +85,32 @@ ui <- shiny::navbarPage("Simulation SIR/SEIR",
                               shiny::mainPanel(shiny::plotOutput("distSEIRPlot"))
                             )
                             )
+                 ),
+                 shiny::tabPanel("Simulation SIR et SEIR",
+                          shiny::fluidPage(
+                            shiny::sidebarLayout(
+                              shiny::sidebarPanel(
+                                shiny::sliderInput("beta3",
+                                            "Beta:",
+                                            min = 0,
+                                            max = 2,
+                                            value = 1,
+                                            step=0.1),
+                                shiny::sliderInput("gamma3",
+                                            "Gamma:",
+                                            min = 0,
+                                            max = 1,
+                                            value = 0.1)
+                                ,
+                                shiny::sliderInput("sigm3",
+                                            "Sigma:",
+                                            min = 0,
+                                            max = 1,
+                                            value = 0.5)
+                              ),
+                              # Show a plot of the generated distribution
+                              shiny::mainPanel(shiny::plotOutput("distSIRSEIRPlot"))
+                            )
+                            )
                  )
 )

@@ -26,6 +26,13 @@ server <- function(input, output) {
   output$distMHPlot_sim <- renderPlot(
     myshinyapp::representerMH_simulation_finale(resultats(),input$number_burnin)
   )
+
+  output$distSIRSEIRPlot <- renderPlot(
+    myshinyapp::plot_simulation_graph_SIR_SEIR(
+      myshinyapp::simulate_SIR(c("beta"=input$beta3,"gamma"=input$gamma3,"initI"=1, "N"=763)),
+      myshinyapp::simulate_SEIR(c("beta"=input$beta3,"gamma"=input$gamma3,"sigma"=input$sigma3,"initI"=1, "N"=763))
+    )
+  )
   
   
   

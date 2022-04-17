@@ -53,12 +53,20 @@ calculer_vraisemblance=function(beta,gamma){
 }
 
 calculer_posterior<-function(beta,gamma){
-  return(calculer_vraisemblance(beta,gamma)*dunif(beta,min=0,max=10)*dunif(gamma,min=0,max=1))
+    # on exclut les valeurs négatives ou nulles car elles ne correspondent pas à des paramètres du modèle SIR, gamma appartient à ]0,1]
+    if ((gamma <=0)|| (gamma>1) || (beta <=0)) {
+            return(0)
+    }
+    else{
+        return(calculer_vraisemblance(beta,gamma)*dunif(beta,min=0,max=10)*dunif(gamma,min=0,max=1))
+    }
 }
 
-# On choisit une loi normal pour choisir un candidat
+# On choisit une loi normal tronquée pour choisir un candidat
 calculer_selon_distribution_proposee<-function(parametres){
-  return(rnorm(2,mean=parametres,c(0.5,0.1)))
+    gamma=truncnorm::rtruncnorm(1, a=0, b=1, mean = parametres[2], sd = 0.5)
+    beta=truncnorm::rtruncnorm(1, a=0, b=Inf, mean = parametres[1], sd = 0.1)
+    return(c(beta,gamma))
 }
 
 calculer_metropolis_hastings <- function(valeurs_initiales_choisies, nombre_iterations_voulues){
@@ -203,4 +211,12 @@ simulate_SEIR=function(parameters){
   #merge with data
   seir_data=merge(data2,solutionSEIR,all=TRUE)
   return(seir_data)
+}
+
+plot_simulation_graph_SIR_SEIR=function(simulation_dataframe_SIR,simulation_dataframe_SEIR){
+    df_observed<- data.frame(x=time,y=simulation_dataframe_SIR$infected,type="observed")
+    df_simul_sir <- data.frame(x=simulation_dataframe_SIR$time,y=simulation_dataframe_SIR$I,type="simulated SIR")
+    df_simul_seir <- data.frame(x=simulation_dataframe_SEIR$time,y=simulation_dataframe_SEIR$I,type="simulated SEIR")
+    df<-rbind(df_observed,df_simul_sir,df_simul_seir)
+    ggplot2::ggplot(data=df) + ggplot2::geom_line(mapping = aes(x , y ,colour = type)) 
 }
