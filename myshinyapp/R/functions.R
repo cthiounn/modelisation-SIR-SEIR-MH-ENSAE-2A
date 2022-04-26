@@ -43,7 +43,7 @@ plot_simulation_graph=function(simulation_dataframe){
   df_observed<- data.frame(x=time,y=infected,type="observed")
   df_simul <- data.frame(x=simulation_dataframe$time,y=simulation_dataframe$I,type="simulated")
   df<-rbind(df_observed,df_simul)
-  ggplot2::ggplot(data=df) + ggplot2::geom_line(mapping = ggplot2::aes(x , y ,colour = type)) 
+  ggplot2::ggplot(data=df) + ggplot2::geom_line(mapping = ggplot2::aes(x , y ,colour = type)) + ggplot2::xlab("temps") + ggplot2::ylab("nombre d'infectés")
 } 
   
 calculer_vraisemblance=function(beta,gamma){
@@ -121,7 +121,7 @@ representerMH_beta_distrib<-function(resultats_parametres,nombre_iteration_burnI
   distribution_simulee_beta=resultats_parametres[-(1:nombre_iteration_burnIn),1]
   beta_moyen=mean(distribution_simulee_beta)
   
-  hist(distribution_simulee_beta, main="Posterior de Beta", xlab="Valeur de Beta" )
+  hist(distribution_simulee_beta, main="Posterior de Beta", xlab="Valeur de Beta", ylab="Nombre d'occurrence" )
   abline(v=beta_moyen,col='red' )
 
 }
@@ -142,7 +142,7 @@ representerMH_gamma_distrib<-function(resultats_parametres,nombre_iteration_burn
   
   
   
-  hist(distributation_simulee_gamma, main="Posterior de Gamma", xlab="Valeur de Gamma")
+  hist(distributation_simulee_gamma, main="Posterior de Gamma", xlab="Valeur de Gamma", ylab="Nombre d'occurrence")
   abline(v =gamma_moyen,col='red')
 }
 
@@ -218,5 +218,5 @@ plot_simulation_graph_SIR_SEIR=function(simulation_dataframe_SIR,simulation_data
     df_simul_sir <- data.frame(x=simulation_dataframe_SIR$time,y=simulation_dataframe_SIR$I,type="simulated SIR")
     df_simul_seir <- data.frame(x=simulation_dataframe_SEIR$time,y=simulation_dataframe_SEIR$I,type="simulated SEIR")
     df<-rbind(df_observed,df_simul_sir,df_simul_seir)
-    ggplot2::ggplot(data=df) + ggplot2::geom_line(mapping = ggplot2::aes(x , y ,colour = type)) 
+    ggplot2::ggplot(data=df) + ggplot2::geom_line(mapping = ggplot2::aes(x , y ,colour = type))  + ggplot2::xlab("temps") + ggplot2::ylab("nombre d'infectés")
 }
